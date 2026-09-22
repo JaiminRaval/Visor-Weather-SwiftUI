@@ -11,10 +11,18 @@ import CoreData
 @main
 struct Visor_Weather_SwiftUIApp: App {
     let persistenceController = PersistenceController.shared
+    // Get your key  after signup/login at https://home.openweathermap.org/api_keys
+    private let apiKey = "YOUR_API_KEY"
+    private let city = "London"
 
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WeatherView(
+                city: city,
+                viewModel: WeatherViewModel(service: WeatherService(apiKey: apiKey))
+            )
+
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
